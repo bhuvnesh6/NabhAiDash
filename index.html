@@ -22,6 +22,7 @@
     --emerald:#3CF0A8;
     --amber:#FFB627;
     --red:#FF4757;
+    --violet:#B48EFF;
     --text-dim: #5E7E8F;
     --text-mid: #A9C7D4;
     --font-display: 'Space Grotesk', sans-serif;
@@ -37,7 +38,6 @@
   ::-webkit-scrollbar-track{ background:transparent; }
   ::-webkit-scrollbar-thumb{ background:rgba(127,219,255,0.22); border-radius:3px; }
 
-  /* ============ FULL SCREEN VIDEO BACKGROUND ============ */
   #videoBg{ position:fixed; inset:0; width:100%; height:100%; background:#000; z-index:0; }
   #feed{
     position:absolute; inset:0; width:100%; height:100%;
@@ -60,7 +60,7 @@
   }
   .empty-eyebrow{ font-family:var(--font-mono); font-size:9.5px; letter-spacing:0.22em; color:var(--cyan); text-transform:uppercase; opacity:0.85; }
   .empty-title{ font-family:var(--font-accent); font-style:italic; font-weight:600; font-size:23px; letter-spacing:0.005em; color:var(--white); }
-  .empty-sub{ font-family:var(--font-body); font-size:12.5px; color:var(--text-mid); letter-spacing:0.01em; text-align:center; max-width:380px; line-height:1.65; }
+  .empty-sub{ font-family:var(--font-body); font-size:12.5px; color:var(--text-mid); letter-spacing:0.01em; text-align:center; max-width:420px; line-height:1.65; }
   .start-btn{
     margin-top:8px; font-family:var(--font-mono); font-size:11px; font-weight:600; letter-spacing:0.1em;
     color:var(--void); background:linear-gradient(135deg, var(--cyan), #6FE3FF); border:none; border-radius:8px;
@@ -79,7 +79,6 @@
   .vignette{ position:fixed; inset:0; pointer-events:none; z-index:5; box-shadow: inset 0 0 200px 60px rgba(0,0,0,0.72); }
   .grid-overlay{ position:fixed; inset:0; pointer-events:none; z-index:1; opacity:0.35; }
 
-  /* ============ HUD SHELL ============ */
   .hud-shell{ position:fixed; inset:0; z-index:10; display:grid; grid-template-rows: 54px 1fr 198px; gap:8px; padding:8px; pointer-events:none; }
   .hud-shell > *{ pointer-events:auto; }
 
@@ -163,6 +162,17 @@
   .counter-num.c-alert{ color:var(--red); }
   .counter-lbl{ font-family:var(--font-mono); font-size:7px; color:var(--text-dim); letter-spacing:0.05em; margin-top:3px; text-transform:uppercase; }
 
+  /* ===== THRUST CARD (new) ===== */
+  .thrust-big{ font-family:var(--font-mono); font-weight:700; font-size:28px; color:var(--violet); text-shadow:0 0 18px rgba(180,142,255,0.5); display:flex; align-items:baseline; gap:5px; }
+  .thrust-big .unit{ font-size:12px; color:var(--text-mid); font-weight:500; }
+  .thrust-sub-row{ display:flex; justify-content:space-between; margin-top:8px; }
+  .thrust-sub{ text-align:center; }
+  .thrust-sub-val{ font-family:var(--font-mono); font-size:12px; font-weight:700; color:var(--ice); }
+  .thrust-sub-lbl{ font-family:var(--font-mono); font-size:7.5px; color:var(--text-dim); letter-spacing:0.06em; margin-top:2px; }
+  .thrust-bar-track{ width:100%; height:8px; border-radius:4px; background:rgba(127,219,255,0.06); border:1px solid var(--line); overflow:hidden; margin-top:9px; }
+  .thrust-bar-fill{ height:100%; border-radius:4px; background:linear-gradient(90deg, var(--violet), #d4b0ff 60%, var(--amber)); transition: width 0.18s ease-out; box-shadow:0 0 10px rgba(180,142,255,0.4); width:0%; }
+  .thrust-model-note{ font-family:var(--font-mono); font-size:7.5px; color:var(--text-dim); margin-top:7px; line-height:1.5; }
+
   .db-meter-track{ width:100%; height:12px; border-radius:7px; background:rgba(127,219,255,0.06); border:1px solid var(--line); overflow:hidden; position:relative; margin-top:10px; }
   .db-meter-fill{ height:100%; border-radius:7px; background:linear-gradient(90deg, var(--emerald), var(--cyan) 55%, var(--amber) 85%, var(--red) 100%); transition: width 0.15s ease-out; box-shadow:0 0 12px rgba(0,229,255,0.35); width:0%; }
   .db-readout{ display:flex; justify-content:space-between; align-items:baseline; }
@@ -183,6 +193,11 @@
   .hud-chip .hl{ font-family:var(--font-mono); font-size:7.5px; color:var(--cyan); letter-spacing:0.12em; text-transform:uppercase; opacity:0.85; }
   .hud-chip .hv{ font-family:var(--font-mono); font-weight:700; font-size:15px; color:var(--white); margin-top:2px; }
   .hud-chip .hv .unit{ font-size:9.5px; color:var(--text-mid); font-weight:500; margin-left:2px; }
+
+  /* thrust chip — violet accent */
+  .hud-chip.thrust-chip{ border-color:rgba(180,142,255,0.35); }
+  .hud-chip.thrust-chip .hl{ color:var(--violet); }
+  .hud-chip.thrust-chip .hv{ color:var(--violet); text-shadow:0 0 10px rgba(180,142,255,0.4); }
 
   .hud-strip-top{ display:flex; gap:8px; justify-content:center; padding-top:2px; }
   .hud-strip-bottom{ display:flex; gap:8px; justify-content:center; align-items:flex-end; height:100%; padding-bottom:4px; }
@@ -207,11 +222,12 @@
   .centroid-dot::before{ content:''; position:absolute; inset:-9px; border:1px solid rgba(0,229,255,0.4); border-radius:50%; animation: centroid-expand 1.8s ease-out infinite; }
   @keyframes centroid-expand{ 0%{ transform:scale(0.4); opacity:0.9;} 100%{ transform:scale(2.2); opacity:0;} }
 
-  .bottom{ display:grid; grid-template-columns: 1fr 1fr 1fr 1fr 300px; gap:8px; min-height:0; }
+  .bottom{ display:grid; grid-template-columns: 1fr 1fr 1fr 1fr 1fr 300px; gap:8px; min-height:0; }
   .chart-card{ padding:10px 12px 8px; display:flex; flex-direction:column; min-height:0; }
   .chart-head{ display:flex; justify-content:space-between; align-items:baseline; margin-bottom:2px; }
   .chart-title{ font-family:var(--font-mono); font-size:8.5px; color:var(--text-dim); letter-spacing:0.09em; text-transform:uppercase; }
   .chart-now{ font-family:var(--font-mono); font-size:12px; font-weight:700; color:var(--cyan); }
+  .chart-now.violet{ color:var(--violet); }
   .chart-canvas-wrap{ flex:1; min-height:0; }
 
   .console-card{ padding:10px 12px 8px; display:flex; flex-direction:column; min-height:0; }
@@ -226,13 +242,14 @@
   .log-tag.warn{ color:var(--amber); }
   .log-tag.crit{ color:var(--red); }
   .log-tag.ok{ color:var(--emerald); }
+  .log-tag.thrust{ color:var(--violet); }
   .log-msg{ color:var(--text-mid); overflow:hidden; text-overflow:ellipsis; }
 
   .calib-note{
     position:fixed; bottom:204px; right:8px; z-index:11;
     font-family:var(--font-mono); font-size:8px; color:var(--text-dim);
     background:rgba(4,7,9,0.55); border:1px solid var(--line); border-radius:5px;
-    padding:4px 8px; max-width:250px; line-height:1.5; backdrop-filter:blur(6px);
+    padding:4px 8px; max-width:280px; line-height:1.5; backdrop-filter:blur(6px);
     pointer-events:none;
   }
 
@@ -250,9 +267,9 @@
     <div class="empty-icon">
       <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#00E5FF" stroke-width="1.5"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
     </div>
-    <div class="empty-eyebrow">NabhAI // RTS-04</div>
-    <div class="empty-title">Live telemetry, from your camera</div>
-    <div class="empty-sub">Grant camera and microphone access to begin acquisition from the test stand. Every reading on this board — brightness, flame geometry, vibration, acoustic signature — is computed live from your actual feed. Nothing here is simulated.</div>
+    <div class="empty-eyebrow">NabhAI // Bhuvi</div>
+    <div class="empty-title">Live telemetry, from camera</div>
+    <div class="empty-sub">Grant camera and microphone access to begin acquisition. Brightness, flame geometry, vibration, acoustic signature, and estimated thrust are all computed live from your feed. Thrust uses a multi-sensor fusion model combining acoustic SPL, flame area, and vibration — no load cell required.</div>
     <button class="start-btn" id="startBtn">Start Live Feed</button>
     <div class="perm-error" id="permError"></div>
   </div>
@@ -278,7 +295,7 @@
       </div>
     </div>
     <div class="nav-center">
-      <div class="nav-mission"><div class="nav-mission-label">Mission</div><div class="nav-mission-value">Agni-Lite Static Fire</div></div>
+      <div class="nav-mission"><div class="nav-mission-label">Mission</div><div class="nav-mission-value">Solid Motor Static Fire</div></div>
       <div class="nav-divider"></div>
       <div class="nav-mission"><div class="nav-mission-label">Test ID</div><div class="nav-mission-value">RTS-04 / Run-0117</div></div>
     </div>
@@ -332,6 +349,7 @@
           <div class="health-row"><span class="health-name">Mic Array</span><span class="health-pill off" id="healthMic">OFFLINE</span></div>
           <div class="health-row"><span class="health-name">Vision Pipeline</span><span class="health-pill off" id="healthVision">IDLE</span></div>
           <div class="health-row"><span class="health-name">Motion Sensor</span><span class="health-pill off" id="healthMotion">IDLE</span></div>
+          <div class="health-row"><span class="health-name">Thrust Model</span><span class="health-pill off" id="healthThrust">IDLE</span></div>
         </div>
       </div>
 
@@ -352,6 +370,7 @@
         <div class="hud-chip"><div class="hl">Brightness</div><div class="hv" id="hudBright">—<span class="unit">rel.</span></div></div>
         <div class="hud-chip"><div class="hl">Smoke Density</div><div class="hv" id="hudSmoke">—<span class="unit">%</span></div></div>
         <div class="hud-chip"><div class="hl">Audio Level</div><div class="hv" id="hudAudio">—<span class="unit">dB</span></div></div>
+        <div class="hud-chip thrust-chip"><div class="hl">Est. Thrust</div><div class="hv" id="hudThrust">—<span class="unit">N</span></div></div>
       </div>
 
       <div class="status-banner" style="position:absolute; top:60px; left:50%; transform:translateX(-50%);">
@@ -369,10 +388,27 @@
         <div class="hud-chip" style="padding:5px 10px;"><div class="hl" style="margin-bottom:0;">FPS <span id="hudFps" style="color:var(--white)">—</span></div></div>
         <div class="hud-chip" style="padding:5px 10px;"><div class="hl" style="margin-bottom:0;">VIBRATION <span id="hudVib" style="color:var(--white)">— Hz</span></div></div>
         <div class="hud-chip" style="padding:5px 10px;"><div class="hl" style="margin-bottom:0;">RES <span id="hudRes" style="color:var(--white)">—</span></div></div>
+        <div class="hud-chip thrust-chip" style="padding:5px 10px;"><div class="hl" style="margin-bottom:0;">IMPULSE <span id="hudImpulse" style="color:var(--violet)">— N·s</span></div></div>
+        <div class="hud-chip thrust-chip" style="padding:5px 10px;"><div class="hl" style="margin-bottom:0;">PEAK THRUST <span id="hudPeakThrust" style="color:var(--violet)">— N</span></div></div>
       </div>
     </div>
 
     <div class="right-col">
+      <div class="card glass">
+        <div class="card-label"><span>Estimated Thrust</span><span class="tick" style="background:var(--violet);box-shadow:0 0 6px var(--violet);"></span></div>
+        <div class="thrust-big"><span id="thrustVal">—</span><span class="unit">N (est.)</span></div>
+        <div class="thrust-bar-track"><div class="thrust-bar-fill" id="thrustBarFill"></div></div>
+        <div class="thrust-sub-row">
+          <div class="thrust-sub"><div class="thrust-sub-val" id="thrustPeak">—</div><div class="thrust-sub-lbl">PEAK N</div></div>
+          <div class="thrust-sub"><div class="thrust-sub-val" id="thrustAvg">—</div><div class="thrust-sub-lbl">AVG N</div></div>
+          <div class="thrust-sub"><div class="thrust-sub-val" id="thrustImpulse">—</div><div class="thrust-sub-lbl">IMPULSE N·s</div></div>
+        </div>
+        <div class="thrust-model-note">
+          MODEL: T = α·A_flame + β·dB_norm + γ·vib — calibrated to ambient baseline.<br>
+          <span style="color:rgba(94,126,143,0.7);">Relative units only. Scale with load-cell data to get SI thrust.</span>
+        </div>
+      </div>
+
       <div class="card glass">
         <div class="card-label"><span>Audio Analysis</span><span class="tick"></span></div>
         <div class="db-readout"><div class="db-val" id="dbVal">—<span class="unit">dB SPL (rel.)</span></div><div class="db-peak">PEAK <span id="dbPeak">—</span></div></div>
@@ -417,6 +453,10 @@
       <div class="chart-head"><span class="chart-title">Audio dB / Time</span><span class="chart-now" id="chNowAudio">—</span></div>
       <div class="chart-canvas-wrap"><canvas id="chartAudio"></canvas></div>
     </div>
+    <div class="chart-card glass">
+      <div class="chart-head"><span class="chart-title">Est. Thrust / Time</span><span class="chart-now violet" id="chNowThrust">—</span></div>
+      <div class="chart-canvas-wrap"><canvas id="chartThrust"></canvas></div>
+    </div>
     <div class="console-card glass">
       <div class="console-head">
         <div class="console-title"><span class="dot off" id="consoleDot" style="width:5px;height:5px;"></span>AI Event Feed</div>
@@ -428,7 +468,7 @@
 
 </div>
 
-<div class="calib-note">REL. UNITS — derived live from webcam luminance/motion &amp; mic input. Not calibrated to SI without a reference target.</div>
+<div class="calib-note">REL. UNITS — Thrust is estimated via multi-sensor fusion (vision + audio + vibration). Not calibrated to SI without a load-cell reference. Impulse = ∫T dt.</div>
 
 <script>
 (function(){
@@ -438,7 +478,6 @@
   const lerp = (a,b,t) => a + (b-a)*t;
   const pad2 = n => String(Math.floor(n)).padStart(2,'0');
 
-  /* ================= CACHED DOM REFS (avoid repeated lookups in hot loops) ================= */
   const UI = {
     sysTime: $('sysTime'), recDot: $('recDot'), recLabel: $('recLabel'),
     linkDot: $('linkDot'), linkLabel: $('linkLabel'), cpuVal: $('cpuVal'), gpuVal: $('gpuVal'),
@@ -446,37 +485,56 @@
     seg: [$('seg0'),$('seg1'),$('seg2'),$('seg3')], lbl: [$('lbl0'),$('lbl1'),$('lbl2'),$('lbl3')],
     timerMain: $('timerMain'), timerMs: $('timerMs'), timerMeta: $('timerMeta'),
     stabilityVal: $('stabilityVal'), stabilityTag: $('stabilityTag'), stabilityRing: $('stabilityRing'),
-    healthCam: $('healthCam'), healthMic: $('healthMic'), healthVision: $('healthVision'), healthMotion: $('healthMotion'),
+    healthCam: $('healthCam'), healthMic: $('healthMic'), healthVision: $('healthVision'),
+    healthMotion: $('healthMotion'), healthThrust: $('healthThrust'),
     cntEvents: $('cntEvents'), cntWarn: $('cntWarn'), cntAlert: $('cntAlert'),
     hudFlameArea: $('hudFlameArea'), hudFlameLen: $('hudFlameLen'), hudBright: $('hudBright'),
-    hudSmoke: $('hudSmoke'), hudAudio: $('hudAudio'), hudVib: $('hudVib'), hudFps: $('hudFps'), hudRes: $('hudRes'),
+    hudSmoke: $('hudSmoke'), hudAudio: $('hudAudio'), hudVib: $('hudVib'),
+    hudFps: $('hudFps'), hudRes: $('hudRes'),
+    hudThrust: $('hudThrust'), hudImpulse: $('hudImpulse'), hudPeakThrust: $('hudPeakThrust'),
     statusBannerText: $('statusBannerText'), statusRing: $('statusRing'),
     flameReticle: $('flameReticle'), centroidDot: $('centroidDot'), chConf: $('ch-conf-val'),
     dbVal: $('dbVal'), dbPeak: $('dbPeak'), dbMeterFill: $('dbMeterFill'),
     domFreq: $('domFreq'), freqSub: $('freqSub'),
     acousticVal: $('acousticVal'), acousticRing: $('acousticRing'),
-    chNowBright: $('chNowBright'), chNowArea: $('chNowArea'), chNowVib: $('chNowVib'), chNowAudio: $('chNowAudio'),
+    chNowBright: $('chNowBright'), chNowArea: $('chNowArea'), chNowVib: $('chNowVib'),
+    chNowAudio: $('chNowAudio'), chNowThrust: $('chNowThrust'),
     consoleDot: $('consoleDot'), consoleBody: $('consoleBody'),
-    emptyState: $('emptyState'), startBtn: $('startBtn'), permError: $('permError'), video: $('feed')
+    emptyState: $('emptyState'), startBtn: $('startBtn'), permError: $('permError'), video: $('feed'),
+    thrustVal: $('thrustVal'), thrustBarFill: $('thrustBarFill'),
+    thrustPeak: $('thrustPeak'), thrustAvg: $('thrustAvg'), thrustImpulse: $('thrustImpulse'),
   };
 
-  /* ================= SYSTEM CLOCK ================= */
   function updateClock(){ UI.sysTime.textContent = new Date().toTimeString().slice(0,8); }
   setInterval(updateClock, 1000); updateClock();
 
-  /* ================= STATE ================= */
   let streamActive = false;
   let burnStart = null;
-  let burnStage = -1; // -1 calibrating, 0 standby, 1 ignition, 2 stable, 3 shutdown
+  let burnStage = -1;
   let eventsCount=0, warnCount=0, alertCount=0;
   let dbPeakVal = -Infinity;
 
-  /* ================= CALIBRATION (adaptive baseline so detection works in any lighting/noise) ================= */
   const CALIB_MS = 1400;
   let calibStartT = 0, calibSamples = 0;
   let calib = { lum:0, motion:0, db:0, ready:false };
 
-  /* ================= CPU/GPU LOAD (real, derived from our own pipeline frame cost) ================= */
+  /* ===== THRUST MODEL STATE ===== */
+  // Multi-sensor fusion: T_est = α·A_norm + β·dB_norm + γ·vib_norm
+  // Coefficients tuned to emphasise flame area most (primary correlate), then acoustic (energy proxy), then vibration
+  const THRUST_ALPHA  = 0.55;  // flame area weight
+  const THRUST_BETA   = 0.32;  // acoustic weight
+  const THRUST_GAMMA  = 0.13;  // vibration weight
+  const THRUST_SCALE  = 150;   // maps 0–1 composite → 0–150 relative-N units
+  // Calibration offsets (set after baseline window)
+  let thrustCalibOffset = 0;
+  let smoothThrust = 0;
+  let thrustPeak = 0;
+  let thrustAccumulator = 0; // N·s integral (approximate, relative)
+  let thrustSumCount = 0, thrustSumTotal = 0;
+  let lastThrustLogT = 0;
+  // Ring buffer for thrust chart
+  let thrustPrevLogT = 0;
+
   let frameTimes = new Float32Array(30), frameTimesIdx = 0, frameTimesLen = 0;
   function reportLoad(ms){
     frameTimes[frameTimesIdx] = ms;
@@ -492,7 +550,6 @@
     UI.gpuVal.textContent = clamp(pct*1.25, 4, 97).toFixed(0)+'%';
   }, 1000);
 
-  /* ================= EVENT CONSOLE ================= */
   function fmtTime(){
     if(!burnStart) return 'T+00:00.00';
     const e = performance.now() - burnStart;
@@ -504,21 +561,16 @@
     line.className = 'log-line';
     line.innerHTML = `<span class="log-time">${fmtTime()}</span><span class="log-tag ${tag}">[${tag.toUpperCase()}]</span><span class="log-msg">${msg}</span>`;
     UI.consoleBody.prepend(line);
-    while(UI.consoleBody.children.length > 50) UI.consoleBody.removeChild(UI.consoleBody.lastChild);
+    while(UI.consoleBody.children.length > 60) UI.consoleBody.removeChild(UI.consoleBody.lastChild);
     if(tag==='warn'){ warnCount++; UI.cntWarn.textContent = warnCount; }
     if(tag==='crit'){ alertCount++; UI.cntAlert.textContent = alertCount; }
     eventsCount++; UI.cntEvents.textContent = eventsCount;
   }
 
-  /* ================= MINI CHART ENGINE (fixed-size ring buffers — no array shift/alloc churn) ================= */
   function makeChart(canvas, color, points){
     const ctx = canvas.getContext('2d', { alpha:true });
     const n = points || 80;
-    return {
-      ctx, canvas, color,
-      buf: new Float32Array(n), n, head:0, count:0,
-      dirty:false
-    };
+    return { ctx, canvas, color, buf: new Float32Array(n), n, head:0, count:0, dirty:false };
   }
   function chartPush(chart, val){
     chart.buf[chart.head] = val;
@@ -567,24 +619,26 @@
     const last = pts[pts.length-1];
     ctx.beginPath(); ctx.arc(last[0],last[1],2.4,0,Math.PI*2); ctx.fillStyle=color.line; ctx.shadowColor=color.line; ctx.shadowBlur=7; ctx.fill(); ctx.shadowBlur=0;
   }
-  const cyanColor={line:'#00E5FF',fill0:'rgba(0,229,255,0.2)',fill1:'rgba(0,229,255,0)'};
-  const iceColor={line:'#7FDBFF',fill0:'rgba(127,219,255,0.18)',fill1:'rgba(127,219,255,0)'};
-  const amberColor={line:'#FFB627',fill0:'rgba(255,182,39,0.18)',fill1:'rgba(255,182,39,0)'};
-  const emeraldColor={line:'#3CF0A8',fill0:'rgba(60,240,168,0.18)',fill1:'rgba(60,240,168,0)'};
-  const chartBright=makeChart($('chartBright'),amberColor);
-  const chartArea=makeChart($('chartArea'),cyanColor);
-  const chartVib=makeChart($('chartVib'),iceColor);
-  const chartAudio=makeChart($('chartAudio'),emeraldColor);
-  const allCharts=[chartBright,chartArea,chartVib,chartAudio];
+  const cyanColor   = {line:'#00E5FF',fill0:'rgba(0,229,255,0.2)',fill1:'rgba(0,229,255,0)'};
+  const iceColor    = {line:'#7FDBFF',fill0:'rgba(127,219,255,0.18)',fill1:'rgba(127,219,255,0)'};
+  const amberColor  = {line:'#FFB627',fill0:'rgba(255,182,39,0.18)',fill1:'rgba(255,182,39,0)'};
+  const emeraldColor= {line:'#3CF0A8',fill0:'rgba(60,240,168,0.18)',fill1:'rgba(60,240,168,0)'};
+  const violetColor = {line:'#B48EFF',fill0:'rgba(180,142,255,0.22)',fill1:'rgba(180,142,255,0)'};
+
+  const chartBright = makeChart($('chartBright'),  amberColor);
+  const chartArea   = makeChart($('chartArea'),    cyanColor);
+  const chartVib    = makeChart($('chartVib'),     iceColor);
+  const chartAudio  = makeChart($('chartAudio'),   emeraldColor);
+  const chartThrust = makeChart($('chartThrust'),  violetColor);
+  const allCharts   = [chartBright,chartArea,chartVib,chartAudio,chartThrust];
   allCharts.forEach(resizeChartCanvas);
   window.addEventListener('resize', ()=> allCharts.forEach(resizeChartCanvas));
 
-  /* ================= WEBCAM + MIC CAPTURE ================= */
   const video = UI.video;
   let audioCtx, analyser, freqData, timeData, sampleRate;
   let workCanvas, workCtx;
-  const W = 128, H = 72; // analysis grid — small enough to stay cheap, big enough to be meaningful
-  let bufA = new Uint8ClampedArray(W*H*4), bufB = new Uint8ClampedArray(W*H*4);
+  const W = 128, H = 72;
+  let bufA = new Uint8ClampedArray(W*H*4);
   let havePrev = false;
   let rafId = null;
   let frameCount = 0, lastFpsT = performance.now(), fps = 0;
@@ -622,6 +676,7 @@
       calibStartT = performance.now();
       calibSamples = 0;
       calib = { lum:0, motion:0, db:0, ready:false };
+      thrustPeak = 0; thrustAccumulator = 0; thrustSumCount = 0; thrustSumTotal = 0; smoothThrust = 0;
 
       UI.recDot.classList.remove('off'); UI.recDot.classList.add('calib');
       UI.recLabel.textContent = 'CALIBRATING';
@@ -631,6 +686,7 @@
       UI.healthMic.textContent='NOMINAL'; UI.healthMic.className='health-pill ok';
       UI.healthVision.textContent='CALIBRATING'; UI.healthVision.className='health-pill warn';
       UI.healthMotion.textContent='CALIBRATING'; UI.healthMotion.className='health-pill warn';
+      UI.healthThrust.textContent='STANDBY'; UI.healthThrust.className='health-pill warn';
       UI.consoleDot.classList.remove('off'); UI.consoleDot.classList.add('live');
       UI.statusRing.classList.add('pulse');
       UI.statusBannerText.textContent = 'Calibrating sensors…';
@@ -650,48 +706,34 @@
       UI.startBtn.disabled = false;
       UI.startBtn.textContent = 'Start Live Feed';
       UI.permError.classList.add('show');
-      UI.permError.textContent = 'Access denied or unavailable: ' + (err.message || err.name || 'unknown error') + '. Check browser permissions and try again.';
+      UI.permError.textContent = 'Access denied: ' + (err.message || err.name || 'unknown error') + '. Check browser permissions.';
     }
   }
   UI.startBtn.addEventListener('click', startFeed);
   window.addEventListener('load', ()=>{ startFeed(); });
 
-  /* ================= VISION + AUDIO STATE ================= */
   let stability = 0, acoustic = 0;
   let smoothBright=0, smoothFlameArea=0, smoothFlameLen=0, smoothSmoke=0;
+  let smoothDb = 0, smoothVib = 0;
   const VIB_HIST_N = 48;
   let vibHistory = new Float32Array(VIB_HIST_N), vibHistIdx = 0, vibHistCount = 0, vibFreq = 0;
   let motionEnergyPrev = 0;
   let stageTimer = 0, lossT = null, lastWarnT = 0;
 
-  // throttling intervals — vision/UI doesn't need 60fps, this is what keeps CPU/RAM low
-  const VISION_INTERVAL = 70;   // ~14fps analysis — plenty for flame/brightness/vibration tracking
-  const AUDIO_INTERVAL = 45;    // ~22fps audio readout
-  const CHART_INTERVAL = 130;   // ~7-8fps chart sampling
+  const VISION_INTERVAL = 70;
+  const AUDIO_INTERVAL = 45;
+  const CHART_INTERVAL = 130;
   let lastAnalysisT = 0, lastAudioT = 0, lastChartT = 0;
 
   function mainLoop(ts){
     rafId = requestAnimationFrame(mainLoop);
     if(!streamActive) return;
-
-    // handle calibration window first
     if(burnStage === -1){
-      if(ts - calibStartT < CALIB_MS){
-        sampleCalibrationFrame();
-        return;
-      } else {
-        finishCalibration();
-      }
+      if(ts - calibStartT < CALIB_MS){ sampleCalibrationFrame(); return; }
+      else { finishCalibration(); }
     }
-
-    if(ts - lastAnalysisT >= VISION_INTERVAL){
-      lastAnalysisT = ts;
-      runVisionAnalysis(ts);
-    }
-    if(audioCtx && ts - lastAudioT >= AUDIO_INTERVAL){
-      lastAudioT = ts;
-      runAudioAnalysis(ts);
-    }
+    if(ts - lastAnalysisT >= VISION_INTERVAL){ lastAnalysisT = ts; runVisionAnalysis(ts); }
+    if(audioCtx && ts - lastAudioT >= AUDIO_INTERVAL){ lastAudioT = ts; runAudioAnalysis(ts); }
   }
 
   function sampleCalibrationFrame(){
@@ -714,28 +756,66 @@
   function finishCalibration(){
     calib.ready = true;
     burnStage = 0;
+    // Thrust calibration offset: at rest, thrust should read 0
+    thrustCalibOffset = 0; // will be computed from first few standby frames
     UI.recDot.classList.remove('calib'); UI.recDot.classList.add('rec');
     UI.recLabel.textContent = 'REC';
     UI.healthVision.textContent='RUNNING'; UI.healthVision.className='health-pill ok';
     UI.healthMotion.textContent='RUNNING'; UI.healthMotion.className='health-pill ok';
+    UI.healthThrust.textContent='RUNNING'; UI.healthThrust.className='health-pill ok';
     UI.burnRing.classList.add('pulse');
     logEvent('ok', `Baseline locked — lum ${calib.lum.toFixed(0)}, noise floor ${calib.db.toFixed(1)} dB`);
+    logEvent('thrust', `Thrust model armed — α=${THRUST_ALPHA} β=${THRUST_BETA} γ=${THRUST_GAMMA}`);
     renderBurnStage();
+  }
+
+  /* ========== THRUST ESTIMATION ========== */
+  /*
+   * Physics rationale (relative / proxy approach):
+   *
+   * For a solid-propellant motor, thrust correlates with:
+   *   1. Flame area & brightness (combustion surface proxy)
+   *   2. Acoustic SPL above ambient (exhaust gas kinetic energy → sound)
+   *   3. Structural vibration frequency × amplitude (motor case impulse)
+   *
+   * We cannot measure pressure, nozzle geometry, or exhaust velocity from a camera,
+   * so we build a weighted linear combination of three normalized sensor signals:
+   *
+   *   T_raw = α · A_norm + β · dB_norm + γ · V_norm
+   *
+   * where each term is normalised 0→1 from its expected operating range:
+   *   A_norm  = smoothFlameArea / FLAME_MAX_REF   (0 = no flame, 1 = full FOV flame)
+   *   dB_norm = clamp((dB - calib.db) / dB_RANGE, 0, 1)
+   *   V_norm  = clamp(vibFreq / VIB_FREQ_MAX, 0, 1)
+   *
+   * T_raw is then scaled by THRUST_SCALE (relative-N) and smoothed with a 0.22 EMA.
+   *
+   * To get real Newtons: run a known-thrust burn alongside a load cell, record
+   * the peak T_raw, then set THRUST_SCALE = F_real / T_raw_peak.
+   */
+  const FLAME_MAX_REF  = 500;   // flame pixel count at "full burn" — tune per camera/distance
+  const DB_RANGE       = 45;    // dB above ambient considered max thrust level
+  const VIB_FREQ_MAX   = 25;    // Hz — upper vibration proxy limit
+
+  function computeThrust(flameArea, db, vib){
+    if(!calib.ready || burnStage < 1) return 0;
+    const A_norm  = clamp(flameArea / FLAME_MAX_REF, 0, 1);
+    const dB_norm = clamp((db - calib.db) / DB_RANGE, 0, 1);
+    const V_norm  = clamp(vib / VIB_FREQ_MAX, 0, 1);
+    const T_raw = THRUST_ALPHA * A_norm + THRUST_BETA * dB_norm + THRUST_GAMMA * V_norm;
+    return Math.max(0, T_raw * THRUST_SCALE);
   }
 
   function runVisionAnalysis(ts){
     const t0 = performance.now();
     if(!video.videoWidth) return;
-
     workCtx.save(); workCtx.scale(-1,1); workCtx.drawImage(video,-W,0,W,H); workCtx.restore();
     const frame = workCtx.getImageData(0,0,W,H);
     const data = frame.data;
-    const prev = havePrev ? bufA : null;
 
     let sumLum=0;
     let flameMinX=W, flameMaxX=0, flameMinY=H, flameMaxY=0, flameCount=0;
-    let smokeCount=0;
-    let motionEnergy=0;
+    let smokeCount=0, motionEnergy=0;
 
     for(let y=0;y<H;y++){
       const rowOff = y*W*4;
@@ -744,8 +824,6 @@
         const r=data[i], g=data[i+1], b=data[i+2];
         const lum = 0.299*r + 0.587*g + 0.114*b;
         sumLum += lum;
-
-        // HSV-ish hue/sat/val for robust flame & smoke classification across exposure levels
         const maxc=Math.max(r,g,b), minc=Math.min(r,g,b), d=maxc-minc;
         const val = maxc/255;
         const sat = maxc===0?0:d/maxc;
@@ -756,19 +834,14 @@
           else hue = 60*((r-g)/d+4);
           if(hue<0) hue+=360;
         }
-        // flame: warm hue band (red->amber->yellow), reasonably saturated, bright
         if((hue<=55 || hue>=345) && sat>0.32 && val>0.42){
           flameCount++;
           if(x<flameMinX)flameMinX=x; if(x>flameMaxX)flameMaxX=x;
           if(y<flameMinY)flameMinY=y; if(y>flameMaxY)flameMaxY=y;
         }
-        // smoke: desaturated mid-gray band
-        if(sat<0.13 && val>0.16 && val<0.62){
-          smokeCount++;
-        }
-
-        if(prev){
-          const pr=prev[i], pg=prev[i+1], pb=prev[i+2];
+        if(sat<0.13 && val>0.16 && val<0.62) smokeCount++;
+        if(havePrev){
+          const pr=bufA[i], pg=bufA[i+1], pb=bufA[i+2];
           const pl = 0.299*pr+0.587*pg+0.114*pb;
           motionEnergy += Math.abs(lum-pl);
         }
@@ -779,18 +852,13 @@
     const flameFrac = flameCount/totalPx;
     const smokeFrac = smokeCount/totalPx;
     motionEnergy = motionEnergy/totalPx;
-
-    // swap frame buffers (no per-frame allocation)
     bufA.set(data); havePrev = true;
 
     smoothBright = lerp(smoothBright||avgLum, avgLum, 0.2);
-    const flameAreaPx = flameCount;
-    const flameLenPx = flameCount>0 ? (flameMaxY-flameMinY) : 0;
-    smoothFlameArea = lerp(smoothFlameArea, flameAreaPx, 0.28);
-    smoothFlameLen = lerp(smoothFlameLen, flameLenPx, 0.28);
+    smoothFlameArea = lerp(smoothFlameArea, flameCount, 0.28);
+    smoothFlameLen = lerp(smoothFlameLen, flameCount>0?(flameMaxY-flameMinY):0, 0.28);
     smoothSmoke = lerp(smoothSmoke, smokeFrac*100, 0.16);
 
-    // vibration proxy: zero-crossing rate of the motion-energy signal around its rolling mean
     vibHistory[vibHistIdx] = motionEnergy;
     vibHistIdx = (vibHistIdx+1) % VIB_HIST_N;
     if(vibHistCount < VIB_HIST_N) vibHistCount++;
@@ -807,8 +875,8 @@
       const target = (crossings/2) / Math.max(0.2,windowSeconds);
       vibFreq = lerp(vibFreq, target, 0.3);
     }
+    smoothVib = lerp(smoothVib||vibFreq, vibFreq, 0.3);
 
-    const baseMotion = calib.ready ? calib.motion : 0;
     const motionDelta = Math.abs(motionEnergy - motionEnergyPrev);
     motionEnergyPrev = motionEnergy;
     const volatility = clamp(motionDelta*8, 0, 60);
@@ -820,18 +888,51 @@
     const now = performance.now();
     if(now-lastFpsT > 500){ fps = (frameCount*1000)/(now-lastFpsT); frameCount=0; lastFpsT=now; }
 
-    updateVisionUI(flameMinX,flameMaxX,flameMinY,flameMaxY, flameCount, flameFrac);
+    // Compute thrust using latest smoothed audio dB
+    const thrustRaw = computeThrust(smoothFlameArea, smoothDb||calib.db, smoothVib||vibFreq);
+    smoothThrust = lerp(smoothThrust, thrustRaw, 0.22);
+    if(burnStage >= 1 && smoothThrust > thrustPeak) thrustPeak = smoothThrust;
+
+    // Impulse integration: ΔT × dt (dt in seconds since VISION_INTERVAL ms ticks)
+    if(burnStage >= 1){
+      const dt = VISION_INTERVAL / 1000;
+      thrustAccumulator += smoothThrust * dt;
+      thrustSumTotal += smoothThrust; thrustSumCount++;
+    }
+
+    // Log notable thrust events
+    const nowT = performance.now();
+    if(burnStage>=1 && smoothThrust > THRUST_SCALE*0.8 && nowT-lastThrustLogT > 2000){
+      logEvent('thrust', `High thrust detected — est. ${smoothThrust.toFixed(0)} rel-N`);
+      lastThrustLogT = nowT;
+    }
+
+    updateVisionUI(flameMinX,flameMaxX,flameMinY,flameMaxY,flameCount,flameFrac);
     updateBurnState(avgLum, flameFrac, motionEnergy);
+    updateThrustUI();
 
     if(ts - lastChartT >= CHART_INTERVAL){
       lastChartT = ts;
       chartPush(chartBright, smoothBright/255*100);
       chartPush(chartArea, smoothFlameArea);
       chartPush(chartVib, vibFreq);
-      [chartBright,chartArea,chartVib].forEach(c=>{ if(c.dirty){ drawChart(c); c.dirty=false; } });
+      chartPush(chartThrust, smoothThrust);
+      [chartBright,chartArea,chartVib,chartThrust].forEach(c=>{ if(c.dirty){ drawChart(c); c.dirty=false; } });
     }
-
     reportLoad(performance.now()-t0);
+  }
+
+  function updateThrustUI(){
+    const avgThrust = thrustSumCount > 0 ? thrustSumTotal/thrustSumCount : 0;
+    UI.thrustVal.textContent = smoothThrust.toFixed(1);
+    UI.thrustBarFill.style.width = clamp((smoothThrust/THRUST_SCALE)*100,0,100)+'%';
+    UI.thrustPeak.textContent = thrustPeak.toFixed(1);
+    UI.thrustAvg.textContent = avgThrust.toFixed(1);
+    UI.thrustImpulse.textContent = thrustAccumulator.toFixed(1);
+    UI.hudThrust.innerHTML = smoothThrust.toFixed(0)+'<span class="unit">N</span>';
+    UI.hudImpulse.textContent = thrustAccumulator.toFixed(1)+' N·s';
+    UI.hudPeakThrust.textContent = thrustPeak.toFixed(1)+' N';
+    UI.chNowThrust.textContent = smoothThrust.toFixed(0)+' N';
   }
 
   function updateBurnState(avgLum, flameFrac, motionEnergy){
@@ -840,33 +941,16 @@
     const lumDelta = avgLum - calib.lum;
     const hasIgnitionFlash = (lumDelta > Math.max(18, calib.lum*0.3) && flameFrac>0.0006) || flameFrac>0.003;
     let newStage = burnStage;
-
-    if(burnStage===0 && hasIgnitionFlash){
-      newStage = 1;
-      logEvent('info','Ignition signature detected');
-      stageTimer = performance.now();
-      lossT = null;
-    } else if(burnStage===1 && hasFlame && (performance.now()-stageTimer)>650){
-      newStage = 2;
-      logEvent('ok','Stable combustion confirmed');
-    } else if(burnStage>=1 && !hasFlame && burnStage<3){
-      if(lossT===null) lossT = performance.now();
-      if(performance.now()-lossT > 1400){
-        newStage = 3;
-        logEvent('info','Flame signature lost — burn complete');
-      }
-    } else if(hasFlame){
-      lossT = null;
-    }
-
-    if(newStage!==burnStage){ burnStage = newStage; renderBurnStage(); }
-
+    if(burnStage===0 && hasIgnitionFlash){ newStage=1; logEvent('info','Ignition signature detected'); stageTimer=performance.now(); lossT=null; }
+    else if(burnStage===1 && hasFlame && (performance.now()-stageTimer)>650){ newStage=2; logEvent('ok','Stable combustion confirmed'); }
+    else if(burnStage>=1 && !hasFlame && burnStage<3){
+      if(lossT===null) lossT=performance.now();
+      if(performance.now()-lossT > 1400){ newStage=3; logEvent('info','Flame signature lost — burn complete'); }
+    } else if(hasFlame){ lossT=null; }
+    if(newStage!==burnStage){ burnStage=newStage; renderBurnStage(); }
     const nowT = performance.now();
-    const motionWarnThresh = Math.max(16, calib.motion*5 + 10);
-    if(motionEnergy > motionWarnThresh && nowT-lastWarnT > 3000){
-      logEvent('warn','Elevated frame motion / vibration detected');
-      lastWarnT = nowT;
-    }
+    const motionWarnThresh = Math.max(16, calib.motion*5+10);
+    if(motionEnergy > motionWarnThresh && nowT-lastWarnT > 3000){ logEvent('warn','Elevated frame motion / vibration detected'); lastWarnT=nowT; }
   }
 
   function renderBurnStage(){
@@ -875,176 +959,147 @@
     UI.burnStateLabel.textContent = labels[burnStage];
     UI.burnStateText.style.color = colors[burnStage];
     UI.burnRing.style.background = burnStage===0?'var(--text-dim)':burnStage===1?'var(--amber)':burnStage===2?'var(--emerald)':'var(--ice)';
-    UI.burnRing.style.boxShadow = '0 0 10px '+ (burnStage===0?'transparent':colors[burnStage]);
-    for(let i=0;i<4;i++){
-      UI.seg[i].classList.toggle('done', i<=burnStage);
-      UI.lbl[i].classList.toggle('active', i===burnStage);
-    }
+    UI.burnRing.style.boxShadow = '0 0 10px '+(burnStage===0?'transparent':colors[burnStage]);
+    for(let i=0;i<4;i++){ UI.seg[i].classList.toggle('done',i<=burnStage); UI.lbl[i].classList.toggle('active',i===burnStage); }
     UI.statusBannerText.textContent = burnStage===0?'Awaiting ignition':burnStage===1?'Ignition transient':burnStage===2?'Stable combustion — tracking locked':'Burn complete';
     UI.statusRing.style.background = colors[burnStage];
     if(burnStage>=2) UI.timerMeta.textContent = 'T+ SINCE IGNITION CONFIRM';
   }
 
-  function updateVisionUI(fMinX,fMaxX,fMinY,fMaxY, flameCount, flameFrac){
+  function updateVisionUI(fMinX,fMaxX,fMinY,fMaxY,flameCount,flameFrac){
     UI.hudFlameArea.innerHTML = Math.round(smoothFlameArea*16)+'<span class="unit">px²</span>';
     UI.hudFlameLen.innerHTML = Math.round(smoothFlameLen*4.8)+'<span class="unit">px</span>';
     UI.hudBright.innerHTML = (smoothBright/255*100).toFixed(0)+'<span class="unit">% rel.</span>';
     UI.hudSmoke.innerHTML = smoothSmoke.toFixed(0)+'<span class="unit">%</span>';
     UI.hudVib.textContent = vibFreq.toFixed(1)+' Hz';
     UI.hudFps.textContent = fps.toFixed(1);
-
     UI.chNowBright.textContent = (smoothBright/255*100).toFixed(0)+'%';
     UI.chNowArea.textContent = Math.round(smoothFlameArea*16)+' px²';
     UI.chNowVib.textContent = vibFreq.toFixed(1)+' Hz';
-
     UI.stabilityVal.textContent = stability.toFixed(0)+'%';
     UI.stabilityTag.textContent = stability>70?'NOMINAL RANGE':stability>40?'MARGINAL':'UNSTABLE';
-    const circ1 = 188.5;
+    const circ1=188.5;
     UI.stabilityRing.style.strokeDashoffset = (circ1*(1-stability/100)).toFixed(1);
     UI.stabilityRing.style.stroke = stability>70?'#00E5FF':stability>40?'#FFB627':'#FF4757';
-
-    const reticle = UI.flameReticle, dot = UI.centroidDot;
-    if(flameCount > 5){
+    const reticle=UI.flameReticle, dot=UI.centroidDot;
+    if(flameCount>5){
       reticle.classList.add('active'); dot.classList.add('active');
-      const rect = getVideoRenderRect();
-      const sx = rect.w / W, sy = rect.h / H;
-      const bx = rect.x + fMinX*sx, by = rect.y + fMinY*sy;
-      const bw = (fMaxX-fMinX)*sx, bh = (fMaxY-fMinY)*sy;
-      reticle.style.left = bx+'px'; reticle.style.top = by+'px';
-      reticle.style.width = Math.max(20,bw)+'px'; reticle.style.height = Math.max(20,bh)+'px';
-      dot.style.left = (bx+bw/2)+'px'; dot.style.top = (by+bh/2)+'px';
-      UI.chConf.textContent = 'CONF '+clamp(flameFrac*40,0.4,0.99).toFixed(2);
+      const rect=getVideoRenderRect();
+      const sx=rect.w/W, sy=rect.h/H;
+      const bx=rect.x+fMinX*sx, by=rect.y+fMinY*sy;
+      const bw=(fMaxX-fMinX)*sx, bh=(fMaxY-fMinY)*sy;
+      reticle.style.left=bx+'px'; reticle.style.top=by+'px';
+      reticle.style.width=Math.max(20,bw)+'px'; reticle.style.height=Math.max(20,bh)+'px';
+      dot.style.left=(bx+bw/2)+'px'; dot.style.top=(by+bh/2)+'px';
+      UI.chConf.textContent='CONF '+clamp(flameFrac*40,0.4,0.99).toFixed(2);
     } else {
       reticle.classList.remove('active'); dot.classList.remove('active');
     }
   }
-
   function getVideoRenderRect(){
-    const vw = window.innerWidth, vh = window.innerHeight;
-    const vidW = video.videoWidth, vidH = video.videoHeight;
-    if(!vidW || !vidH) return {x:0,y:0,w:vw,h:vh};
-    const scale = Math.min(vw/vidW, vh/vidH);
-    const w = vidW*scale, h = vidH*scale;
-    return {x:(vw-w)/2, y:(vh-h)/2, w, h};
+    const vw=window.innerWidth, vh=window.innerHeight;
+    const vidW=video.videoWidth, vidH=video.videoHeight;
+    if(!vidW||!vidH) return {x:0,y:0,w:vw,h:vh};
+    const scale=Math.min(vw/vidW,vh/vidH);
+    const w=vidW*scale, h=vidH*scale;
+    return {x:(vw-w)/2,y:(vh-h)/2,w,h};
   }
 
-  /* ================= AUDIO ANALYSIS ================= */
   let acousticHist = new Float32Array(32), acousticHistIdx=0, acousticHistCount=0;
 
   function runAudioAnalysis(ts){
     if(!analyser) return;
     analyser.getByteFrequencyData(freqData);
     analyser.getByteTimeDomainData(timeData);
-
     let sumSq=0;
     for(let i=0;i<timeData.length;i++){ const v=(timeData[i]-128)/128; sumSq+=v*v; }
-    const rms = Math.sqrt(sumSq/timeData.length);
-    const dbRel = 20*Math.log10(Math.max(rms,0.0001)) + 100;
-    const db = clamp(dbRel, 0, 130);
-    if(db>dbPeakVal) dbPeakVal = db;
-
-    UI.dbVal.innerHTML = db.toFixed(1)+'<span class="unit">dB SPL (rel.)</span>';
-    UI.dbPeak.textContent = dbPeakVal===-Infinity? '—' : dbPeakVal.toFixed(1);
-    UI.dbMeterFill.style.width = clamp((db/130)*100,0,100)+'%';
-    UI.hudAudio.innerHTML = db.toFixed(0)+'<span class="unit">dB</span>';
-    UI.chNowAudio.textContent = db.toFixed(0)+' dB';
-    if(ts - lastChartT < CHART_INTERVAL + AUDIO_INTERVAL){ /* charted alongside vision tick below */ }
+    const rms=Math.sqrt(sumSq/timeData.length);
+    const dbRel=20*Math.log10(Math.max(rms,0.0001))+100;
+    const db=clamp(dbRel,0,130);
+    smoothDb = lerp(smoothDb||db, db, 0.35);
+    if(db>dbPeakVal) dbPeakVal=db;
+    UI.dbVal.innerHTML=db.toFixed(1)+'<span class="unit">dB SPL (rel.)</span>';
+    UI.dbPeak.textContent=dbPeakVal===-Infinity?'—':dbPeakVal.toFixed(1);
+    UI.dbMeterFill.style.width=clamp((db/130)*100,0,100)+'%';
+    UI.hudAudio.innerHTML=db.toFixed(0)+'<span class="unit">dB</span>';
+    UI.chNowAudio.textContent=db.toFixed(0)+' dB';
     chartPush(chartAudio, db);
-    if(chartAudio.dirty && ts - (chartAudio._lastDraw||0) > CHART_INTERVAL){ drawChart(chartAudio); chartAudio.dirty=false; chartAudio._lastDraw=ts; }
+    if(chartAudio.dirty && ts-(chartAudio._lastDraw||0)>CHART_INTERVAL){ drawChart(chartAudio); chartAudio.dirty=false; chartAudio._lastDraw=ts; }
 
-    // dominant frequency with parabolic sub-bin interpolation for better precision
     let maxBin=1, maxVal=0;
     for(let i=2;i<freqData.length-1;i++){ if(freqData[i]>maxVal){ maxVal=freqData[i]; maxBin=i; } }
-    let interpBin = maxBin;
-    if(maxBin>1 && maxBin<freqData.length-1){
-      const y1=freqData[maxBin-1], y2=freqData[maxBin], y3=freqData[maxBin+1];
-      const denom = (y1-2*y2+y3);
-      if(denom!==0) interpBin = maxBin + 0.5*(y1-y3)/denom;
+    let interpBin=maxBin;
+    if(maxBin>1&&maxBin<freqData.length-1){
+      const y1=freqData[maxBin-1],y2=freqData[maxBin],y3=freqData[maxBin+1];
+      const denom=(y1-2*y2+y3);
+      if(denom!==0) interpBin=maxBin+0.5*(y1-y3)/denom;
     }
-    const nyquist = sampleRate/2;
-    const domHz = (interpBin/freqData.length)*nyquist;
-    if(maxVal>18){
-      UI.domFreq.textContent = domHz.toFixed(1)+' Hz';
-      UI.freqSub.textContent = '2ND HARMONIC '+(domHz*2).toFixed(1)+' Hz';
-    }
+    const nyquist=sampleRate/2;
+    const domHz=(interpBin/freqData.length)*nyquist;
+    if(maxVal>18){ UI.domFreq.textContent=domHz.toFixed(1)+' Hz'; UI.freqSub.textContent='2ND HARMONIC '+(domHz*2).toFixed(1)+' Hz'; }
 
-    acousticHist[acousticHistIdx] = domHz;
-    acousticHistIdx = (acousticHistIdx+1)%acousticHist.length;
+    acousticHist[acousticHistIdx]=domHz;
+    acousticHistIdx=(acousticHistIdx+1)%acousticHist.length;
     if(acousticHistCount<acousticHist.length) acousticHistCount++;
     if(acousticHistCount>5){
-      let mean=0; for(let k=0;k<acousticHistCount;k++) mean+=acousticHist[k];
-      mean/=acousticHistCount;
+      let mean=0; for(let k=0;k<acousticHistCount;k++) mean+=acousticHist[k]; mean/=acousticHistCount;
       let varSum=0; for(let k=0;k<acousticHistCount;k++){ const d=acousticHist[k]-mean; varSum+=d*d; }
-      const stdev = Math.sqrt(varSum/acousticHistCount);
-      const targetAcoustic = clamp(100 - stdev*0.4, 0, 100);
-      acoustic = lerp(acoustic, targetAcoustic, 0.12);
+      const stdev=Math.sqrt(varSum/acousticHistCount);
+      const targetAcoustic=clamp(100-stdev*0.4,0,100);
+      acoustic=lerp(acoustic,targetAcoustic,0.12);
     }
-    UI.acousticVal.textContent = acoustic.toFixed(0)+'%';
+    UI.acousticVal.textContent=acoustic.toFixed(0)+'%';
     const circ2=144.5;
-    UI.acousticRing.style.strokeDashoffset = (circ2*(1-acoustic/100)).toFixed(1);
-    UI.acousticRing.style.stroke = acoustic>70?'#3CF0A8':acoustic>40?'#FFB627':'#FF4757';
-
+    UI.acousticRing.style.strokeDashoffset=(circ2*(1-acoustic/100)).toFixed(1);
+    UI.acousticRing.style.stroke=acoustic>70?'#3CF0A8':acoustic>40?'#FFB627':'#FF4757';
     drawFft(); drawWave();
   }
 
-  /* ================= FFT BAR RENDER ================= */
-  const fftCanvas = $('fftCanvas');
-  const fftCtx = fftCanvas.getContext('2d');
+  const fftCanvas=$('fftCanvas'), fftCtx=fftCanvas.getContext('2d');
   function resizeFft(){ const r=fftCanvas.getBoundingClientRect(); const dpr=Math.min(devicePixelRatio||1,2); fftCanvas.width=Math.max(1,Math.round(r.width*dpr)); fftCanvas.height=Math.max(1,Math.round(r.height*dpr)); fftCtx.setTransform(dpr,0,0,dpr,0,0); }
-  resizeFft(); window.addEventListener('resize', resizeFft);
+  resizeFft(); window.addEventListener('resize',resizeFft);
   function drawFft(){
     if(!freqData) return;
-    const r=fftCanvas.getBoundingClientRect();
-    const w=r.width, h=r.height;
+    const r=fftCanvas.getBoundingClientRect(), w=r.width, h=r.height;
     fftCtx.clearRect(0,0,w,h);
-    const bars=32;
-    const binsPerBar = Math.max(1, Math.floor(freqData.length/2/bars));
-    const barW = w/bars*0.64, gap=w/bars;
+    const bars=32, binsPerBar=Math.max(1,Math.floor(freqData.length/2/bars));
+    const barW=w/bars*0.64, gap=w/bars;
     for(let i=0;i<bars;i++){
-      let sum=0; for(let j=0;j<binsPerBar;j++) sum += freqData[i*binsPerBar+j];
-      const v = (sum/binsPerBar)/255;
-      const bh = v*h;
-      const x = i*gap+(gap-barW)/2;
-      const grad = fftCtx.createLinearGradient(0,h-bh,0,h);
+      let sum=0; for(let j=0;j<binsPerBar;j++) sum+=freqData[i*binsPerBar+j];
+      const v=(sum/binsPerBar)/255, bh=v*h, x=i*gap+(gap-barW)/2;
+      const grad=fftCtx.createLinearGradient(0,h-bh,0,h);
       grad.addColorStop(0,'#00E5FF'); grad.addColorStop(1,'rgba(0,229,255,0.12)');
-      fftCtx.fillStyle=grad;
-      fftCtx.fillRect(x,h-bh,barW,bh);
+      fftCtx.fillStyle=grad; fftCtx.fillRect(x,h-bh,barW,bh);
     }
   }
 
-  /* ================= WAVEFORM RENDER ================= */
-  const waveCanvas = $('waveCanvas');
-  const waveCtx = waveCanvas.getContext('2d');
+  const waveCanvas=$('waveCanvas'), waveCtx=waveCanvas.getContext('2d');
   function resizeWave(){ const r=waveCanvas.getBoundingClientRect(); const dpr=Math.min(devicePixelRatio||1,2); waveCanvas.width=Math.max(1,Math.round(r.width*dpr)); waveCanvas.height=Math.max(1,Math.round(r.height*dpr)); waveCtx.setTransform(dpr,0,0,dpr,0,0); }
-  resizeWave(); window.addEventListener('resize', resizeWave);
+  resizeWave(); window.addEventListener('resize',resizeWave);
   function drawWave(){
     if(!timeData) return;
-    const r=waveCanvas.getBoundingClientRect();
-    const w=r.width, h=r.height;
+    const r=waveCanvas.getBoundingClientRect(), w=r.width, h=r.height;
     waveCtx.clearRect(0,0,w,h);
     waveCtx.beginPath();
-    const step = timeData.length/w;
+    const step=timeData.length/w;
     for(let x=0;x<w;x++){
-      const idx = Math.floor(x*step);
-      const v = (timeData[idx]-128)/128;
-      const y = h/2 + v*h/2*0.9;
-      if(x===0) waveCtx.moveTo(x,y); else waveCtx.lineTo(x,y);
+      const v=(timeData[Math.floor(x*step)]-128)/128;
+      const y=h/2+v*h/2*0.9;
+      if(x===0)waveCtx.moveTo(x,y); else waveCtx.lineTo(x,y);
     }
     waveCtx.strokeStyle='#3CF0A8'; waveCtx.lineWidth=1.3; waveCtx.shadowColor='#3CF0A8'; waveCtx.shadowBlur=4; waveCtx.stroke(); waveCtx.shadowBlur=0;
   }
 
-  /* ================= BURN TIMER (lightweight, separate from analysis loop) ================= */
   function updateTimer(){
     if(!burnStart) return;
-    const elapsed = performance.now()-burnStart;
+    const elapsed=performance.now()-burnStart;
     const mm=Math.floor(elapsed/60000), ss=Math.floor((elapsed%60000)/1000), ms=Math.floor(elapsed%1000);
-    UI.timerMain.textContent = pad2(mm)+':'+pad2(ss);
-    UI.timerMs.textContent = '.'+String(ms).padStart(3,'0');
+    UI.timerMain.textContent=pad2(mm)+':'+pad2(ss);
+    UI.timerMs.textContent='.'+String(ms).padStart(3,'0');
   }
   setInterval(updateTimer, 60);
 
 })();
 </script>
-
 </body>
 </html>
